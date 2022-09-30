@@ -1,0 +1,64 @@
+<?xml version ="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <capability android:name="actions.intent.GET_THING">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mikkyboy.foodtalk.MainActivity"
+            android:targetPackage="com.mikkyboy.foodtalk">
+            <parameter
+                android:name="thing.name"
+                android:key="get_thing" />
+        </intent>
+    </capability>
+
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mikkyboy.foodtalk.MainActivity"
+            android:targetPackage="com.mikkyboy.foodtalk">
+            <parameter
+                android:name="feature"
+                android:key="open_app" />
+        </intent>
+    </capability>
+
+    <!-- Add Open App Feature BII capability   -->
+    <shortcut
+        android:enabled="false"
+        android:shortcutId="completed_tasks"
+        android:shortcutShortLabel="@string/label_completed">
+        <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <parameter-binding
+                android:key="feature"
+                android:value="@array/completed_tasks_synonyms" />
+        </capability-binding>
+    </shortcut>
+
+    <!-- Widget Intents -->
+    <capability android:name="actions.intent.GET_ORDER">
+        <app-widget
+            android:identifier="GET_ORDER"
+            android:targetClass="com.mikkyboy.foodtalk.CustomAppWidgetProvider"
+            android:targetPackage="com.mikkyboy.foodtalk">
+            <!-- Eg. name = "rice and peas" -->
+            <parameter
+                android:name="order.orderedItem.name"
+                android:key="name" />
+            <!-- Eg. orderDate = "2018-06-17T15:00Z" -->
+            <parameter
+                android:name="order.orderDate"
+                android:key="orderDate" />
+            <extra
+                android:name="hasTts"
+                android:value="true" />
+        </app-widget>
+
+        <!-- Fallback intent with no parameters needed to successfully execute. -->
+        <intent
+            android:action="GET_ORDER_FALLBACK"
+            android:targetClass="com.mikkyboy.foodtalk.CustomAppWidgetProvider"
+            android:targetPackage="com.mikkyboy.foodtalk" />
+    </capability>
+
+</shortcuts>
