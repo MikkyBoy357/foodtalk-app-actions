@@ -117,13 +117,16 @@ class FoodProvider extends ChangeNotifier {
     // notifyListeners();
 
     if (intentData['key'] == 'get_thing') {
-      print('===============> GET_THING INTENT <===============');
+      print(
+          '===============> GET_THING INTENT (${intentData.toString()})<===============');
       // if (!mounted) return;
       searchFoodAndShowDetails(context, keyword: intentData['name']);
     } else if (intentData['key'] == 'feature') {
-      print('===============> OPEN_APP INTENT <===============');
+      print(
+          '===============> OPEN_APP INTENT (${intentData.toString()})<===============');
     } else {
-      print('===============> UNKNOWN INTENT <===============');
+      print(
+          '===============> UNKNOWN INTENT (${intentData.toString()})<===============');
     }
 
     // Reset IntentData

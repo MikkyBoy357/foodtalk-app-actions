@@ -200,57 +200,57 @@ fun extractQueryData(
     var paramDate: String = ""
 
 //    // Physical Device
-//    if (params != null) {
-//        params.keySet().forEach { key ->
-//            println("KEYSET => $key")
-//            paramKeys.add(key.toString())
-//        }
-//        println("KeySet => ${params.keySet()}")
-//        println("paramKeys => $paramKeys")
-//        if (paramKeys.contains("name")) {
-//            paramName = params.get("name") as String
-//        }
-//        if (paramKeys.contains("orderDate")) {
-//            paramDate = params.get("orderDate") as String
-//        }
-//    }
-
-    // Emulator
-    optionsBundle.keySet().forEach { key ->
-        Log.d("YO", "[$key=${optionsBundle.get(key)}]")
-        CustomAppWidgetProvider().KEY = optionsBundle.keySet().first()
-        CustomAppWidgetProvider().NAME = "${optionsBundle.get(optionsBundle.keySet().first())}"
-        println("MEH KEY => $key")
-        println("MEH => ${CustomAppWidgetProvider().KEY}")
-        println("MEH => ${CustomAppWidgetProvider().NAME}")
-
-
-        val myBundle: Bundle = optionsBundle.get("app_actions_params") as Bundle
-        println("=======> ParamBundle <==")
-        paramKeys.clear()
-        myBundle.keySet().forEach { key ->
+    if (params != null) {
+        params.keySet().forEach { key ->
             println("KEYSET => $key")
             paramKeys.add(key.toString())
         }
-        println("KeySet => ${myBundle.keySet()}")
+        println("KeySet => ${params.keySet()}")
         println("paramKeys => $paramKeys")
         if (paramKeys.contains("name")) {
-            paramName = myBundle.get("name") as String
+            paramName = params.get("name") as String
         }
-        println("ParamName => $paramName")
         if (paramKeys.contains("orderDate")) {
-            paramDate = myBundle.get("orderDate") as String
+            paramDate = params.get("orderDate") as String
         }
-        println("ParamDate => $paramDate")
+    }
 
-
+    // Emulator
+//    optionsBundle.keySet().forEach { key ->
+//        Log.d("YO", "[$key=${optionsBundle.get(key)}]")
+//        CustomAppWidgetProvider().KEY = optionsBundle.keySet().first()
+//        CustomAppWidgetProvider().NAME = "${optionsBundle.get(optionsBundle.keySet().first())}"
+//        println("MEH KEY => $key")
+//        println("MEH => ${CustomAppWidgetProvider().KEY}")
+//        println("MEH => ${CustomAppWidgetProvider().NAME}")
+//
+//
+//        val myBundle: Bundle = optionsBundle.get("app_actions_params") as Bundle
+//        println("=======> ParamBundle <==")
+//        paramKeys.clear()
+//        myBundle.keySet().forEach { key ->
+//            println("KEYSET => $key")
+//            paramKeys.add(key.toString())
+//        }
+//        println("KeySet => ${myBundle.keySet()}")
+//        println("paramKeys => $paramKeys")
+//        if (paramKeys.contains("name")) {
+//            paramName = myBundle.get("name") as String
+//        }
+//        println("ParamName => $paramName")
+//        if (paramKeys.contains("orderDate")) {
+//            paramDate = myBundle.get("orderDate") as String
+//        }
+//        println("ParamDate => $paramDate")
+//
+//
 //        println("=======> ParamBundle <==")
 //        val paramKey: String = myBundle.keySet().first()
 //        println("ParamKey => $paramKey")
 //        paramName = myBundle.get(paramKey) as String
 //        println("ParamName => $paramName")
-
-    }
+//
+//    }
 
     queryData = mapOf("name" to "$paramName", "orderDate" to "$paramDate")
     return queryData
