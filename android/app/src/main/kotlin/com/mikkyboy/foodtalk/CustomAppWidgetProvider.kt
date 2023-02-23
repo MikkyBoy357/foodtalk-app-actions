@@ -16,12 +16,23 @@ import io.flutter.plugins.GeneratedPluginRegistrant
 import io.flutter.view.FlutterCallbackInformation
 import io.flutter.view.FlutterMain
 
+
+var MYMY: String = "YOYO"
+var ORDER_NAME: String = "ORDER_NAME"
+
+var MyAppWidgetManager: AppWidgetManager? = null
+var MyAppWidgetId: Int? = null
+var MyViews: RemoteViews? = null
+
 class CustomAppWidgetProvider : AppWidgetProvider(), MethodChannel.Result {
 
     private val TAG = "TimTim"
 
     var KEY = ""
     var NAME = ""
+
+    var MY_DELIVERY_STATUS: String = "NULL"
+
 
     companion object {
         private var channel: MethodChannel? = null;
@@ -38,12 +49,13 @@ class CustomAppWidgetProvider : AppWidgetProvider(), MethodChannel.Result {
 
         initializeFlutter()
 
+        var foodName: String = ""
+
 
         for (appWidgetId in appWidgetIds) {
             // Get Query data from Google Assitant
             val paramsQueryData: Map<String, Any?> =
                 extractQueryData(context, appWidgetManager, appWidgetId)
-            var foodName: String = ""
 
             println("paramsQueryData => $paramsQueryData")
             if (paramsQueryData.isNotEmpty()) {
@@ -80,9 +92,57 @@ class CustomAppWidgetProvider : AppWidgetProvider(), MethodChannel.Result {
                 setOnClickPendingIntent(R.id.btnDeliveryStatus, pendingIntentSettings)
             }
 
-            // Tell the AppWidgetManager to perform an update on the current app widget
-            appWidgetManager.updateAppWidget(appWidgetId, views)
+            populateTtsEssentials(
+                appWidgetManager = appWidgetManager,
+                appWidgetId = appWidgetId,
+                views = views
+            )
+
+//            // Update Widget with TTS
+//            val appActionsWidgetExtension: AppActionsWidgetExtension =
+//                AppActionsWidgetExtension.newBuilder(appWidgetManager)
+//                    .setResponseSpeech("Your order is $MYMY")
+//                    .setResponseText("Order #357 $foodName is $MYMY").build()
+//
+//            appActionsWidgetExtension.updateWidget(appWidgetId)
+//            // Tell the AppWidgetManager to perform an update on the current app widget
+//            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
+    }
+
+    fun updateWidgetWithTts(
+//        appWidgetManager: AppWidgetManager,
+//        appWidgetId: Int,
+//        views: RemoteViews,
+        foodName: String,
+        deliveryStatus: String
+    ) {
+        // Update Widget with TTS
+        val appActionsWidgetExtension: AppActionsWidgetExtension = if (deliveryStatus == "404") {
+
+            AppActionsWidgetExtension.newBuilder(MyAppWidgetManager!!)
+                .setResponseSpeech("Order NOT FOUND")
+                .setResponseText("Order #357 was NOT FOUND").build()
+        } else {
+            AppActionsWidgetExtension.newBuilder(MyAppWidgetManager!!)
+                .setResponseSpeech("Your order is $deliveryStatus")
+                .setResponseText("Order #357 $foodName is $deliveryStatus").build()
+        }
+
+        appActionsWidgetExtension.updateWidget(MyAppWidgetId!!)
+        // Tell the AppWidgetManager to perform an update on the current app widget
+        MyAppWidgetManager!!.updateAppWidget(MyAppWidgetId!!, MyViews!!)
+    }
+
+    fun populateTtsEssentials(
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        views: RemoteViews,
+    ) {
+        MyAppWidgetManager = appWidgetManager
+        MyAppWidgetId = appWidgetId
+        MyViews = views
+
     }
 
     private fun initializeFlutter() {
@@ -130,7 +190,16 @@ class CustomAppWidgetProvider : AppWidgetProvider(), MethodChannel.Result {
         val name = args["name"] as String
         val deliveryStatus = args["deliveryStatus"] as String
 
-        updateWidget("onDart $value", name, deliveryStatus, id, context!!)
+        // Populating the DeliveryStatus String for usage in TTS
+        MY_DELIVERY_STATUS = deliveryStatus
+
+        updateWidgetWithTts(
+            foodName = name,
+            deliveryStatus = deliveryStatus
+        )
+
+        val mike: String = updateWidget("onDart $value", name, deliveryStatus, id, context!!)
+        println("========MiKe======> $mike")
     }
 
     override fun notImplemented() {
@@ -156,7 +225,7 @@ internal fun updateWidget(
     deliveryStatus: String,
     appWidgetId: Int,
     context: Context
-) {
+): String {
     val views = RemoteViews(context.packageName, R.layout.widget_layout).apply {
         setTextViewText(R.id.tvCurrentFood, name)
         setTextViewText(R.id.btnDeliveryStatus, deliveryStatus)
@@ -164,7 +233,23 @@ internal fun updateWidget(
 
     val manager = AppWidgetManager.getInstance(context)
     manager.updateAppWidget(appWidgetId, views)
+
+    println("===============DELIVERY STATUS ===> $deliveryStatus")
+    // Populating the DeliveryStatus String for usage in TTS
+    if (deliveryStatus == "WAITING") {
+
+    } else {
+        MYMY = deliveryStatus
+    }
+    println("===============MYMY STATUS ===> $MYMY")
+
+    // Populating the OrderName String for usage in TTS
+    ORDER_NAME = name
+
+
 //    views.setTextViewText(R.id.text2, currentFood.codeName)
+
+    return deliveryStatus
 }
 
 fun extractQueryData(

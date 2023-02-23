@@ -96,15 +96,19 @@ Food? searchFood({required String keyword}) {
   List<Food> foodList = [
     Food(
       name: "Rice and beans",
-      deliveryStatus: DeliveryStatus.pending,
+      deliveryStatus: DeliveryStatus.lost,
     ),
     Food(
       name: "Yam and Beans",
-      deliveryStatus: DeliveryStatus.pending,
+      deliveryStatus: DeliveryStatus.delivered,
     ),
     Food(
       name: "Spaghetti",
       deliveryStatus: DeliveryStatus.pending,
+    ),
+    Food(
+      name: "Sushi",
+      deliveryStatus: DeliveryStatus.delivered,
     ),
   ];
   print('===============> Widget Food Search ($keyword) <===============');

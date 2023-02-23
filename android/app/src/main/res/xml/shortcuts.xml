@@ -1,5 +1,6 @@
 <?xml version ="1.0" encoding="utf-8"?>
-<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <capability android:name="actions.intent.GET_THING">
         <intent
@@ -36,19 +37,23 @@
     </shortcut>
 
     <!-- Widget Intents -->
-    <capability android:name="actions.intent.GET_ORDER">
+    <capability
+        android:name="custom.actions.intent.MY_GET_ORDER"
+        app:queryPatterns="@array/order_queries">
         <app-widget
-            android:identifier="GET_ORDER"
+            android:identifier="MY_GET_ORDER"
             android:targetClass="com.mikkyboy.foodtalk.CustomAppWidgetProvider"
             android:targetPackage="com.mikkyboy.foodtalk">
             <!-- Eg. name = "rice and peas" -->
             <parameter
-                android:name="order.orderedItem.name"
-                android:key="name" />
+                android:name="name"
+                android:key="name"
+                android:mimeType="https://schema.org/Text" />
             <!-- Eg. orderDate = "2018-06-17T15:00Z" -->
             <parameter
-                android:name="order.orderDate"
-                android:key="orderDate" />
+                android:name="orderDate"
+                android:key="orderDate"
+                android:mimeType="https://schema.org/Date" />
             <extra
                 android:name="hasTts"
                 android:value="true" />

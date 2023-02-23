@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mikkyboy.foodtalk">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
@@ -46,6 +48,7 @@
                 android:resource="@xml/shortcuts" />
         </activity>
 
+        <!-- - App Actions Intent for WIDGET -->
         <receiver
             android:name="com.mikkyboy.foodtalk.CustomAppWidgetProvider"
             android:exported="true">
@@ -56,6 +59,16 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_info" />
         </receiver>
+
+        <service
+            android:name="com.mikkyboy.foodtalk.CustomAppWidgetProvider"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action
+                    android:name="com.google.assistant.appactions.widgets.PIN_APP_WIDGET" />
+            </intent-filter>
+        </service>
 
 
         <!-- Don't delete the meta-data below.

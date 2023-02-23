@@ -17,11 +17,7 @@
         <item>Tech Guys</item>
     </array>
     <string-array name="order_queries">
-        <item>show $name order status</item>
-        <item>show my $name order status</item>
-        <item>check $name order status</item>
-        <item>check my $name order status</item>
-        <item>find $name order status</item>
-        <item>find my $name order status</item>
+        <item>check my ${name} delivery status</item>
+        <item>tell me my ${name} delivery status</item>
     </string-array>
 </resources>
