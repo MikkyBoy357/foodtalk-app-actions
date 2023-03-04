@@ -16,8 +16,4 @@
         <item>Tech Bros</item>
         <item>Tech Guys</item>
     </array>
-    <string-array name="order_queries">
-        <item>check my ${name} delivery status</item>
-        <item>tell me my ${name} delivery status</item>
-    </string-array>
 </resources>

@@ -5,4 +5,18 @@
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <string name="configure">Configure</string>
+
+    <string-array name="OrderQueries">
+        <item>start making a $ordername</item>
+        <item>start making an $name</item>
+        <item>craft $name $name items</item>
+        <item>produce $name $number times</item>
+    </string-array>
+
+    <string-array name="ExampleQueries">
+        <item>start making a $name</item>
+        <item>start making an $name</item>
+        <item>craft $number $name items</item>
+        <item>produce $name $number times</item>
+    </string-array>
 </resources>

@@ -116,14 +116,18 @@ class FoodProvider extends ChangeNotifier {
     print("====IntentData====> ${intentData}");
     // notifyListeners();
 
+    // This is to tell our flutter side of the specific intent that was triggered
     if (intentData['key'] == 'get_thing') {
       print(
           '===============> GET_THING INTENT (${intentData.toString()})<===============');
       // if (!mounted) return;
       searchFoodAndShowDetails(context, keyword: intentData['name']);
-    } else if (intentData['key'] == 'feature') {
+    } else if (intentData['key'] == 'open_app') {
       print(
           '===============> OPEN_APP INTENT (${intentData.toString()})<===============');
+    } else if (intentData['key'] == 'name') {
+      print(
+          '===============> EXAMPLE_INTENT (${intentData.toString()})<===============');
     } else {
       print(
           '===============> UNKNOWN INTENT (${intentData.toString()})<===============');

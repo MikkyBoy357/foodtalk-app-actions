@@ -7,6 +7,8 @@ import 'package:foodtalk/utils/boxes.dart';
 import 'package:foodtalk/view_models/food_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../dependency_injection/locator.dart';
+import '../../local_storage/local_db.dart';
 import 'components/add_food_sheet.dart';
 import 'components/food_tile.dart';
 import 'package:foodtalk/utils/const.dart';
@@ -40,6 +42,8 @@ class _FoodlistScreenState extends State<FoodlistScreen> {
       body: Consumer<FoodProvider>(
         builder: (context, food, _) {
           print('Length => ${food.foodList.length}');
+          print('WAHALA => ${locator<AppDataBaseService>()
+              .getMikeList()}');
           return Builder(
             builder: (context) {
               food.loadFoodList();

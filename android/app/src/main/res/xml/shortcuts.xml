@@ -39,7 +39,7 @@
     <!-- Widget Intents -->
     <capability
         android:name="custom.actions.intent.MY_GET_ORDER"
-        app:queryPatterns="@array/order_queries">
+        app:queryPatterns="@array/OrderQueries">
         <app-widget
             android:identifier="MY_GET_ORDER"
             android:targetClass="com.mikkyboy.foodtalk.CustomAppWidgetProvider"
@@ -64,6 +64,25 @@
             android:action="GET_ORDER_FALLBACK"
             android:targetClass="com.mikkyboy.foodtalk.CustomAppWidgetProvider"
             android:targetPackage="com.mikkyboy.foodtalk" />
+    </capability>
+
+    <capability
+        android:name="custom.actions.intent.EXAMPLE_INTENT"
+        app:queryPatterns="@array/ExampleQueries">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.mikkyboy.foodtalk.MainActivity"
+            android:targetPackage="com.mikkyboy.foodtalk">
+            <url-template android:value="http://custom.com{?number_of_items,item_name}" />
+            <parameter
+                android:name="number"
+                android:key="number"
+                android:mimeType="https://schema.org/Number" />
+            <parameter
+                android:name="name"
+                android:key="name"
+                android:mimeType="https://schema.org/Text" />
+        </intent>
     </capability>
 
 </shortcuts>

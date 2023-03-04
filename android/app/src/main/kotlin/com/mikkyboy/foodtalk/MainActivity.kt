@@ -110,7 +110,14 @@ class MainActivity : FlutterActivity(), MethodChannel.MethodCallHandler {
             Log.d("YO", "[$key=${bundle.get(key)}]")
 //            KEY = bundle.keySet().first()
 //            NAME = "${bundle.get(bundle.keySet().first())}"
+            println("key => $key")
             if (key == "get_thing") {
+                KEY = "$key"
+                NAME = "${bundle.get(key)}"
+            } else if (key == "open_app") {
+                KEY = "$key"
+                NAME = "${bundle.get(key)}"
+            } else if (key == "name") {
                 KEY = "$key"
                 NAME = "${bundle.get(key)}"
             }

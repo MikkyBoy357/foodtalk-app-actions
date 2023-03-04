@@ -13,18 +13,22 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'dependency_injection/locator.dart';
 import 'enums/delivery_status.dart';
+import 'local_storage/local_db.dart';
 import 'model/food_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AppDependencies.register();
+  await AppDataBaseService.startService();
 
   /// Initialize HiveDB
-  Directory document = await getApplicationDocumentsDirectory();
-  Hive.init(document.path);
-  Hive.registerAdapter(FoodAdapter());
-  Hive.registerAdapter(DeliveryStatusAdapter());
-  await Hive.openBox<Food>('foodBox');
+  // Directory document = await getApplicationDocumentsDirectory();
+  // Hive.init(document.path);
+  // Hive.registerAdapter(FoodAdapter());
+  // Hive.registerAdapter(DeliveryStatusAdapter());
+  // await Hive.openBox<Food>('foodBox');
 
   initializeAndroidWidgets();
 
